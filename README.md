@@ -7,7 +7,7 @@ Optical system engineer · 3D sensing · Wuhan. <!-- github_stats starts -->0 fo
 **Latest Activity**
 
 <!-- recent_commits starts -->
-• [CHUNSEM](https://github.com/CHUNSEM/CHUNSEM) fix(ci): autostash before pul...andle script-modified README - 2026-05-16<br>• [CHUNSEM](https://github.com/CHUNSEM/CHUNSEM) fix: use public user lookup so default GITHUB_TOKEN suffices - 2026-05-16<br>• [CHUNSEM](https://github.com/CHUNSEM/CHUNSEM) chore: initial profile README + auto-build workflow - 2026-05-16
+• [CHUNSEM](https://github.com/CHUNSEM/CHUNSEM) chore: refresh README - 2026-05-16<br>• [CHUNSEM](https://github.com/CHUNSEM/CHUNSEM) fix(ci): autostash before pul...andle script-modified README - 2026-05-16<br>• [CHUNSEM](https://github.com/CHUNSEM/CHUNSEM) fix: use public user lookup so default GITHUB_TOKEN suffices - 2026-05-16
 <!-- recent_commits ends -->
 
 </td>
