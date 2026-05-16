@@ -20,6 +20,7 @@ from github import Auth, Github
 
 ROOT = pathlib.Path(__file__).parent.resolve()
 TOKEN = os.environ.get("GH_TOKEN", "")
+USERNAME = "CHUNSEM"
 COMMITS_PER_REPO = 3
 COMMITS_TOTAL = 6
 MSG_MAX_LEN = 60
@@ -45,12 +46,16 @@ def truncate_middle(text: str, max_len: int = MSG_MAX_LEN) -> str:
     return f"{text[:left]}...{text[-right:]}"
 
 
+def _client(token: str) -> Github:
+    return Github(auth=Auth.Token(token)) if token else Github()
+
+
 def fetch_github_stats(token: str) -> dict[str, int]:
-    g = Github(auth=Auth.Token(token))
-    user = g.get_user()
+    g = _client(token)
+    user = g.get_user(USERNAME)
     total_stars = 0
     total_forks = 0
-    for repo in user.get_repos(type="owner"):
+    for repo in user.get_repos():
         if repo.fork:
             continue
         total_stars += repo.stargazers_count
@@ -63,11 +68,11 @@ def fetch_github_stats(token: str) -> dict[str, int]:
 
 
 def fetch_recent_commits(token: str) -> list[dict]:
-    g = Github(auth=Auth.Token(token))
-    user = g.get_user()
+    g = _client(token)
+    user = g.get_user(USERNAME)
     commits: list[dict] = []
-    for repo in user.get_repos(type="owner"):
-        if repo.fork or repo.private:
+    for repo in user.get_repos():
+        if repo.fork:
             continue
         try:
             for commit in list(repo.get_commits())[:COMMITS_PER_REPO]:
@@ -98,10 +103,6 @@ def render_commits(commits: list[dict]) -> str:
 
 
 def main() -> None:
-    if not TOKEN:
-        print("[skip] GH_TOKEN not set — README left untouched. "
-              "Locally: GH_TOKEN=$(gh auth token) python build_readme.py")
-        return
     readme = ROOT / "README.md"
     content = readme.read_text(encoding="utf-8")
 
